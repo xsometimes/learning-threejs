@@ -11,3 +11,8 @@ The examples for the third edition of this book can be found in the following re
 
 https://github.com/josdirksen/learning-threejs-third
 
+## deploy
+
+为方便查看和调试，forks之后，用github pages部署了下，网址如下：
+https://xsometimes.github.io/learning-threejs/chapter-xx/xxxxxx.html
+
