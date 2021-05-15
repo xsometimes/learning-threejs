@@ -108,7 +108,7 @@
             spriteMaterial.map.repeat = new THREE.Vector2(1 / 5, 1);
             spriteMaterial.depthTest = false;
 
-            spriteMaterial.blending = THREE.AdditiveBlending;
+            spriteMaterial.blending = THREE.AdditiveBlending; // 让spriteMaterial与大背景融合
 
             var sprite = new THREE.Sprite(spriteMaterial);
             sprite.scale.set(size, size, size);

@@ -44,17 +44,20 @@
         webGLRenderer.setSize(window.innerWidth, window.innerHeight);
         webGLRenderer.shadowMapEnabled = true;
 
+        // 右墙
         var sphere1 = createMesh(new THREE.BoxGeometry(15, 15, 2), "stone.jpg");
         sphere1.rotation.y = -0.5;
         sphere1.position.x = 12;
         scene.add(sphere1);
 
+        // 左墙
         var sphere2 = createMesh(new THREE.BoxGeometry(15, 15, 2), "stone.jpg", "stone-bump.jpg");
         sphere2.rotation.y = 0.5;
         sphere2.position.x = -12;
         scene.add(sphere2);
         console.log(sphere2.geometry.faceVertexUvs);
 
+        // 地面
         var floorTex = THREE.ImageUtils.loadTexture("../assets/textures/general/floor-wood.jpg");
         var plane = new THREE.Mesh(new THREE.BoxGeometry(200, 100, 0.1, 30), new THREE.MeshPhongMaterial({
             color: 0x3c3c3c,
@@ -122,7 +125,7 @@
             var mat = new THREE.MeshPhongMaterial();
             mat.map = texture;
 
-            if (bump) {
+            if (bump) { // 左墙设置细节 凹凸图处
                 var bump = THREE.ImageUtils.loadTexture("../assets/textures/general/" + bump);
                 mat.bumpMap = bump;
                 mat.bumpScale = 0.2;

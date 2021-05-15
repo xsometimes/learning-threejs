@@ -187,6 +187,7 @@
 
             // make the call async to avoid blocking the thread. Need
             // to set timeout > 1, if not executed immediately.
+            // 为了避免阻塞线程，使用异步。如果不立即执行，需要设置timeout>1
             setTimeout(function () {
                 scene.remove(result);
                 var sphere1BSP = new ThreeBSP(sphere1);
@@ -242,8 +243,8 @@
         function createMesh(geom) {
 
             // assign two materials
-            var meshMaterial = new THREE.MeshNormalMaterial();
-            meshMaterial.side = THREE.DoubleSide;
+            // var meshMaterial = new THREE.MeshNormalMaterial();
+            // meshMaterial.side = THREE.DoubleSide;
             var wireFrameMat = new THREE.MeshBasicMaterial({transparency: true, opacity: 0.5, wireframeLinewidth: 0.5});
             wireFrameMat.wireframe = true;
 

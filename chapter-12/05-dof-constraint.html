@@ -177,9 +177,11 @@
             scene.add(rr);
             scene.add(rl);
 
+            // 前右轮
             var frConstraint = createWheelConstraint(fr, body, new THREE.Vector3(0, 4, 8));
             scene.addConstraint(frConstraint);
 
+            // 前左轮
             var flConstraint = createWheelConstraint(fl, body, new THREE.Vector3(0, 4, 2));
             scene.addConstraint(flConstraint);
 
@@ -197,6 +199,8 @@
             // by setting the lower and upper to the same value you can
             // fix the position
             // we can set the x position to 'loosen' the axis for the directional
+            // 如果把下限的值设得比上限的值大，后轮就可以绕着z轴旋转
+            // 若将上下限的值设成一样，则后轮不会在指定轴上移动
             rrConstraint.setAngularLowerLimit({x: 0, y: 0.5, z: 0.1});
             rrConstraint.setAngularUpperLimit({x: 0, y: 0.5, z: 0});
             rlConstraint.setAngularLowerLimit({x: 0, y: 0.5, z: 0.1});

@@ -217,10 +217,10 @@
 
             var planetMaterial = new THREE.MeshPhongMaterial();
             planetMaterial.specularMap = specularTexture;
-            planetMaterial.specular = new THREE.Color(0x4444aa);
+            planetMaterial.specular = new THREE.Color(0x4444aa); // specular材质 反光颜色
 
 
-            planetMaterial.normalMap = normalTexture;
+            planetMaterial.normalMap = normalTexture; // 法向 凹凸贴图
             planetMaterial.map = planetTexture;
 //               planetMaterial.shininess = 150;
 

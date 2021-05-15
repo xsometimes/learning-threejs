@@ -84,26 +84,30 @@
 
             var mat = new THREE.MeshLambertMaterial(
                     {
-                        morphTargets: true,
+                        morphTargets: true, // “动起来”的决定性属性
                         vertexColors: THREE.FaceColors
                     });
 
-
+            
             var mat2 = new THREE.MeshLambertMaterial(
                     {color: 0xffffff, vertexColors: THREE.FaceColors});
-
+            
+            // 右边动态的马    
             mesh = new THREE.Mesh(geometry, mat);
             mesh.position.x = -100;
             frames.push(mesh);
             currentMesh = mesh;
+            
             morphColorsToFaceColors(geometry);
 
+            // morphTargets 相当于关键帧的意思 
+            // 遍历关键帧， 存在frames中  ———— 静态的马    
             mesh.geometry.morphTargets.forEach(function (e) {
                 var geom = new THREE.Geometry();
                 geom.vertices = e.vertices;
                 geom.faces = geometry.faces;
 
-
+                // 左边静态的马
                 var morpMesh = new THREE.Mesh(geom, mat2);
                 frames.push(morpMesh);
                 morpMesh.position.x = -100;
@@ -114,14 +118,14 @@
             geometry.computeFaceNormals();
             geometry.computeMorphNormals();
 
-            meshAnim = new THREE.MorphAnimMesh(geometry, mat);
+            meshAnim = new THREE.MorphAnimMesh(geometry, mat); // 动态的马的动画
             meshAnim.duration = 1000;
             meshAnim.position.x = 200;
             meshAnim.position.z = 0;
 
             scene.add(meshAnim);
 
-            showFrame(0);
+            showFrame(0); // 初始化展示静态的马
 
         }, '../assets/models');
 

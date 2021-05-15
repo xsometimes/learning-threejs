@@ -44,6 +44,13 @@
 
 <!-- Javascript code that runs our Three.js examples -->
 <script type="text/javascript">
+    /**
+     * |  场景  | camera | light  | 物体 |
+     * |  ----  | ----  | ----  | ----  |
+     * |  sceneBG  |  ----  |----  | bgPlane  |
+     * |  sceneEarth  |  ----  | ambi、spotLight  | sphere  |
+     * |  sceneMars  |  ----  | ambi2、spotLight2  | sphere2  |
+    */
 
     // once everything is loaded, we run our Three.js stuff.
     function init() {
@@ -143,16 +150,16 @@
         composer.renderTarget1.stencilBuffer = true;
         composer.renderTarget2.stencilBuffer = true;
 
-        composer.addPass(bgPass);
-        composer.addPass(renderPass);
-        composer.addPass(renderPass2);
-        composer.addPass(marsMask);
-        composer.addPass(effectColorify);
-        composer.addPass(clearMask);
-        composer.addPass(earthMask);
-        composer.addPass(effectSepia);
-        composer.addPass(clearMask);
-        composer.addPass(effectCopy);
+        composer.addPass(bgPass); // new THREE.RenderPass(sceneBG, cameraBG)
+        composer.addPass(renderPass); // new THREE.RenderPass(sceneEarth, camera)
+        composer.addPass(renderPass2); // new THREE.RenderPass(sceneMars, camera)
+        composer.addPass(marsMask); // new THREE.MaskPass(sceneMars, camera);
+        composer.addPass(effectColorify); // new THREE.ShaderPass(THREE.ColorifyShader);
+        composer.addPass(clearMask); // new THREE.ClearMaskPass();
+        composer.addPass(earthMask); // new THREE.MaskPass(sceneEarth, camera);
+        composer.addPass(effectSepia); // new THREE.ShaderPass(THREE.SepiaShader)
+        composer.addPass(clearMask); // new THREE.ClearMaskPass()
+        composer.addPass(effectCopy); // new THREE.ShaderPass(THREE.CopyShader)
 
         render();
 

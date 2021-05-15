@@ -139,7 +139,7 @@
                     wireframeLinewidth: 2,
                     wireframe: true
                 }));
-//            scene.add(bboxMesh);
+        //    scene.add(bboxMesh); // 取消注释，展示包围盒线框
 
                 bboxMesh.position.x = ((box.min.x + box.max.x) / 2);
                 bboxMesh.position.y = ((box.min.y + box.max.y) / 2);
@@ -257,18 +257,27 @@
 
 
         // http://jsfiddle.net/MREL4/
+        /**
+         * 建立一个包含object 世界矩阵 在内的 包围盒？  
+         * 
+         * Box3：
+         * Box3在3D空间中表示一个包围盒，其主要用于表示物体在世界坐标中的边界框。它方便我们判断物体和物体、物体和平面、物体和点的关系等等
+         * 构造器参数Box3(min: Vector3, max: Vector3)，其参数为两个三维向量，第一个向量为Box3在3D空间中各个维度的最小值默认值是( - Infinity, - Infinity, - Infinity )，第二个参数为Box3在3D空间中各个维度的最大值默认值是( + Infinity, + Infinity, + Infinity )
+         * 如new THREE.Box3(new THREE.Vector3(-2,-2,-2), new THREE.Vector3(2,2,2)); 这个box表示3D空间中中心点在(0,0,0)，长宽高为4的包围盒
+         * 
+        */
         function setFromObject(object) {
-            var box = new THREE.Box3();
+            var box = new THREE.Box3(); 
             var v1 = new THREE.Vector3();
-            object.updateMatrixWorld(true);
-            box.makeEmpty();
+            object.updateMatrixWorld(true); // 先更新object的本地矩阵属性，再更新object的世界矩阵属性
+            box.makeEmpty(); // 清空包围盒，即为默认值
             object.traverse(function (node) {
                 if (node.geometry !== undefined && node.geometry.vertices !== undefined) {
                     var vertices = node.geometry.vertices;
                     for (var i = 0, il = vertices.length; i < il; i++) {
                         v1.copy(vertices[i]);
-                        v1.applyMatrix4(node.matrixWorld);
-                        box.expandByPoint(v1);
+                        v1.applyMatrix4(node.matrixWorld); // 更新世界矩阵属性
+                        box.expandByPoint(v1); // 拓展这个包围盒的边界使得该点（point）在包围盒内。
                     }
                 }
             });

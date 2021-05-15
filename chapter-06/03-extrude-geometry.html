@@ -118,6 +118,7 @@
             // straight line upwards
             shape.lineTo(10, 40);
 
+            // 贝塞尔bezier曲线
             // the top of the figure, curve to the right
             shape.bezierCurveTo(15, 25, 25, 25, 30, 40);
 
@@ -128,11 +129,13 @@
                         new THREE.Vector2(30, 10),
                     ]);
 
+            // 二次曲线
             // curve at the bottom
             shape.quadraticCurveTo(20, 15, 10, 10);
 
             // add 'eye' hole one
             var hole1 = new THREE.Path();
+            // abs椭圆
             hole1.absellipse(16, 24, 2, 3, 0, Math.PI * 2, true);
             shape.holes.push(hole1);
 
@@ -143,7 +146,7 @@
 
             // add 'mouth'
             var hole3 = new THREE.Path();
-            hole3.absarc(20, 16, 2, 0, Math.PI, true);
+            hole3.absarc(20, 16, 2, 0, Math.PI, true); // abs圆
             shape.holes.push(hole3);
 
             // return the shape
@@ -152,6 +155,7 @@
 
         function createMesh(geom) {
 
+            // 矩阵 位移
             geom.applyMatrix(new THREE.Matrix4().makeTranslation(-20, 0, 0));
 
             // assign two materials

@@ -243,7 +243,9 @@
             gui.add(controls, 'clearMeshes');
 
             requestAnimationFrame(render);
-            scene.simulate();
+            //调用物理引擎。
+            // 因为Physijs在与主应用程序分开的线程中（web Workers）运行，所以scene.simulate完全可以在渲染场景之前进行调用。发生这种情况时，scene.simulate会返回false。
+            scene.simulate(); 
         };
 
         var stepX;

@@ -81,13 +81,15 @@
         // add the output of the renderer to the html element
         document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
 
-        var renderPass = new THREE.RenderPass(scene, camera);
-        var effectFilm = new THREE.FilmPass(0.8, 0.325, 256, false);
+        var renderPass = new THREE.RenderPass(scene, camera); // RenderPass通道会渲染场景，但不会将渲染结果输出到屏幕上
+        var effectFilm = new THREE.FilmPass(0.8, 0.325, 256, false); // FilmPass通道可以将结果输出到屏幕上
         effectFilm.renderToScreen = true;
 
+        // 创建一个效果组合器对象
         var composer = new THREE.EffectComposer(webGLRenderer);
-        composer.addPass(renderPass);
-        composer.addPass(effectFilm);
+        // 在这个组合器中添加各种通道，每个通道按照其加入EffectComposer的顺序执行
+        composer.addPass(renderPass);   
+        composer.addPass(effectFilm); 
 
 
         // setup the control gui
@@ -152,7 +154,7 @@
             // render using requestAnimationFrame
             requestAnimationFrame(render);
 //            webGLRenderer.render(scene, camera);
-            composer.render(delta);
+            composer.render(delta); // 代替ebGLRenderer.render(scene, camera);
         }
 
         function initStats() {

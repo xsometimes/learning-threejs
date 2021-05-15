@@ -44,17 +44,20 @@
         webGLRenderer.setSize(window.innerWidth, window.innerHeight);
         webGLRenderer.shadowMapEnabled = true;
 
+        // 右box
         var sphere1 = createMesh(new THREE.BoxGeometry(15, 15, 15), "plaster.jpg");
         sphere1.rotation.y = -0.5;
         sphere1.position.x = 12;
         scene.add(sphere1);
 
+        // 左box
         var sphere2 = createMesh(new THREE.BoxGeometry(15, 15, 15), "plaster.jpg", "plaster-normal.jpg");
         sphere2.rotation.y = 0.5;
         sphere2.position.x = -12;
         scene.add(sphere2);
         console.log(sphere2.geometry.faceVertexUvs);
 
+        // 地板
         var floorTex = THREE.ImageUtils.loadTexture("../assets/textures/general/floor-wood.jpg");
         var plane = new THREE.Mesh(new THREE.BoxGeometry(200, 100, 0.1, 30), new THREE.MeshPhongMaterial({
             color: 0x3c3c3c,
@@ -91,10 +94,10 @@
         scene.add(directionalLight);
 
 
-        // add a small sphere simulating the pointlight
+        // add a small sphere simulating the pointlight 模拟上方的pointLight，便于它更换位置
         var sphereLight = new THREE.SphereGeometry(0.2);
         var sphereLightMaterial = new THREE.MeshBasicMaterial({color: 0xac6c25});
-        var sphereLightMesh = new THREE.Mesh(sphereLight, sphereLightMaterial);
+        var sphereLightMesh = new THREE.Mesh(sphereLight, sphereLightMaterial); 
         sphereLightMesh.castShadow = true;
 
         sphereLightMesh.position = new THREE.Vector3(3, 3, 3);
@@ -160,6 +163,7 @@
             return mesh;
         }
 
+        // 这个函数没用到，
         function createNormalmapShaderMaterial(diffuseMap, normalMap) {
             var shader = THREE.ShaderLib["normalmap"];
             var uniforms = THREE.UniformsUtils.clone(shader.uniforms);
@@ -214,7 +218,7 @@
                 sphereLightMesh.position.x = (invert * (sphereLightMesh.position.x - pivot)) + pivot;
             }
 
-            directionalLight.position.copy(sphereLightMesh.position);
+            directionalLight.position.copy(sphereLightMesh.position); // pointLight的位置随小球的位置变而变化
 
             // render using requestAnimationFrame
             requestAnimationFrame(render);

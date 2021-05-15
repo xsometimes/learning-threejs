@@ -78,7 +78,7 @@
         // create a tween
         // http://sole.github.io/tween.js/examples/03_graphs.html
         var posSrc = {pos: 1};
-        var tween = new TWEEN.Tween(posSrc).to({pos: 0}, 5000);
+        var tween = new TWEEN.Tween(posSrc).to({pos: 0}, 5000); // 0.定义tween开始
         tween.easing(TWEEN.Easing.Sinusoidal.InOut);
 
         var tweenBack = new TWEEN.Tween(posSrc).to({pos: 1}, 5000);
@@ -88,7 +88,7 @@
         tweenBack.chain(tween);
 
 
-        var onUpdate = function () {
+        var onUpdate = function () { // 对几何体相关属性的设置
             var count = 0;
             var pos = this.pos;
 
@@ -124,7 +124,7 @@
             pointCloud = new THREE.PointCloud(geometry, material);
             pointCloud.sortParticles = true;
 
-            tween.start();
+            tween.start();  // 1.start
             scene.add(pointCloud);
         });
 
@@ -156,7 +156,7 @@
 
         function render() {
             stats.update();
-            TWEEN.update();
+            TWEEN.update(); // 2.什么时候应该刷新已知的所有补间
             requestAnimationFrame(render);
             webGLRenderer.render(scene, camera);
         }

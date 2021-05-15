@@ -54,11 +54,12 @@
         var material = new THREE.ShaderMaterial({
             fragmentShader: shader.fragmentShader,
             vertexShader: shader.vertexShader,
-            uniforms: shader.uniforms,
+            uniforms: shader.uniforms, // 重定义uniforms
             depthWrite: false,
             side: THREE.BackSide
         });
 
+        // 四周环境
         cubeMesh = new THREE.Mesh(new THREE.BoxGeometry(100, 100, 100), material);
         sceneCube.add(cubeMesh);
 
@@ -72,7 +73,6 @@
 
         var sphere2 = createMesh(new THREE.BoxGeometry(10, 15, 15), "plaster.jpg", "plaster-normal.jpg");
         sphere2.material.envMap = textureCube;
-
         sphere2.rotation.y = 0.5;
         sphere2.position.x = -12;
         sphere2.position.y = 5;
@@ -197,6 +197,7 @@
             return textureCube;
         }
 
+        // 这个函数没用到
         function createNormalmapShaderMaterial(diffuseMap, normalMap) {
             var shader = THREE.ShaderLib["normalmap"];
             var uniforms = THREE.UniformsUtils.clone(shader.uniforms);
